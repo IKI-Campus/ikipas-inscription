@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr" dir="ltr" class="scroll-smooth bg-[#FBF9F5] text-[#243324] antialiased selection:bg-[#E8DCC4] selection:text-[#1F2B1D]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Ensure window.fetch has both getter and setter to prevent extension assignment errors
+      (function() {
+        try {
+          var _origFetch = window.fetch ? window.fetch.bind(window) : null;
+          var _currentFetch = _origFetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() {
+              return _currentFetch;
+            },
+            set: function(fn) {
+              _currentFetch = fn;
+            }
+          });
+        } catch (e) {}
+
+        // Prevent external extension errors from bubbling or crashing the application
+        window.addEventListener('error', function(event) {
+          if (event.filename && event.filename.indexOf('chrome-extension://') !== -1) {
+            event.preventDefault();
+            event.stopPropagation();
+            return true;
+          }
+          if (event.message && event.message.indexOf('Cannot set property fetch') !== -1) {
+            event.preventDefault();
+            event.stopPropagation();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+    <title>IKIPAS | Le premier pas vers votre passion - Orientation Scolaire & Universitaire</title>
+    <meta name="description" content="IKIPAS : Le premier pas vers votre passion. Plateforme d'orientation scolaire et universitaire, fiches d'inscription et choix d'écoles à télécharger en PDF." />
+    <meta property="og:title" content="IKIPAS | Le premier pas vers votre passion" />
+    <meta property="og:description" content="IKIPAS : Guide et plateforme d'orientation scolaire et universitaire, inscription et choix d'écoles." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#FBF9F5] text-[#243324] overflow-x-hidden min-h-screen font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
